@@ -1,6 +1,5 @@
 from selenium import webdriver
 from time import time
-from bs4 import BeautifulSoup
 from loginHelper import login
 from constants import driver
 from constants import BACK_REG_ID, STUD_WOL, STUD_SS, W19_ID, CONT_ID, P2_3, FIN_ID
@@ -9,6 +8,7 @@ from constants import BACK_REG_ID, STUD_WOL, STUD_SS, W19_ID, CONT_ID, P2_3, FIN
 
 # If it doesn't go through, send the user a text/email
 
+# Wrapper - unused
 def stale_click(func):
     def f(*args, **kwargs):
         stale_element = True
@@ -21,10 +21,10 @@ def stale_click(func):
         return rv
     return f
 
+# This function creates a try except while loop to keep clicking
+# on your selected id until it is successful. Lets the page wait for
+# the page to loads.
 def clickit(driver, id):
-    # This function creates a try except while loop to keep clicking
-    # on your selected id until it is successful. Lets the page wait for
-    # the page to loads.
     stale_element = True
     before = time()
     while stale_element:
@@ -35,12 +35,13 @@ def clickit(driver, id):
             stale_element = True
             # Timeout
             after = time()
-            if after - before > 20:
-                print "Timed out"
+            if after - before > 80:
+                print("Timed out")
                 break
 
     return
 
+# This function selects all checkboxes on a webpage
 def sel_all(driver):
 
     stale_element = True
@@ -57,8 +58,8 @@ def sel_all(driver):
 
     return
 
+# Navigate to backpack submit page
 def nav():
-    # Navigate to backpack page
     driver.get(STUD_WOL)
     driver.get(STUD_SS)
     driver.find_element_by_link_text("Backpack/ Registration").click()
@@ -68,10 +69,15 @@ def nav():
 
     driver.find_element_by_id(CONT_ID).click()
     sel_all(driver)
-    clickit(driver, P2_3)
-    clickit(driver, FIN_ID)
 
     return driver
+
+
+# keep clicking until it goes through?
+# This function sends the final submission
+def submit():
+    clickit(driver, P2_3)
+    clickit(driver, FIN_ID)
 
 
 ### WAIT FOR DOM TO LOAD and do a try catch in a while loop

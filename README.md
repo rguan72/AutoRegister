@@ -8,9 +8,13 @@ To prepare for auto register to work, backpack the classes you plan to take, and
 
 ## Running
 
+(before exe)
+Get in the virtual environment:
+`$ pipenv shell`
+
 Run the python script in terminal
-`(virtualenv)$ python rg.py`
-and select "install dependencies" if this is your first time using the product. Otherwise, select "Run Early" if you want the script to wait for your registration date to run. Select "Run Now" if you want the script to register for your classes now. You will be prompted to enter your umich uniqname and password.
+`(virtualenv)$ python registration.py`
+Select "Run Early" if you want the script to wait for your registration date to run. Select "Run Now" if you want the script to register for your classes now. You will be prompted to enter your umich uniqname and password.
 
 ## TODO
 
@@ -18,7 +22,13 @@ Create an .exe (or equivalent for mac) executable.
 
 ## Development
 
-Clone the repo, create a virtual environment, and install dependencies. From there, you are ready to contribute!
+Make sure you have pip and python3 installed. Also install pipenv:
+`$ pip install --user pipenv`
+
+Clone the repo and run pipenv. From there, you are ready to contribute!
+
+## WARNING -- NEED TO FIX
+If the chromedriver window is closed, everything breaks!
 
 ## Authors
 * **Richard Guan**

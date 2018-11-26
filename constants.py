@@ -1,5 +1,5 @@
 from selenium import webdriver
-
+from pytz import timezone
 LOGIN_URL = "https://weblogin.umich.edu/cosign-bin/cosign.cgi"
 driver = webdriver.Chrome("./chromedriver")
 BACK_REG_ID = "DERIVED_SSS_SCR_SSS_LINK_ANCHOR3$span"
@@ -9,6 +9,7 @@ W19_ID = "SSR_DUMMY_RECV1$sels$0$$0" # ID might change with different yeared stu
 CONT_ID = "DERIVED_SSS_SCT_SSR_PB_GO"
 P2_3 = "DERIVED_REGFRM1_LINK_ADD_ENRL$82$"
 FIN_ID = "DERIVED_REGFRM1_SSR_PB_SUBMIT"
+EST = timezone("US/Eastern")
 
 # Testing purposes only
 F19_ID = "SSR_DUMMY_RECV1$sels$1$$0"

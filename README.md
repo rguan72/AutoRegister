@@ -14,7 +14,7 @@ Get in the virtual environment:
 
 Run the python script in terminal
 `(virtualenv)$ python registration.py`
-Select "Run Early" if you want the script to wait for your registration date to run. Select "Run Now" if you want the script to register for your classes now. You will be prompted to enter your umich uniqname and password.
+Select "Run Later" if you want the script to wait for your registration date to run. Select "Run Now" if you want the script to register for your classes now. You will be prompted to enter your umich uniqname and password.
 
 ## TODO
 

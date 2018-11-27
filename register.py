@@ -3,8 +3,7 @@ from datetime import datetime, timedelta
 import pytz
 from constants import EST
 from selenium import webdriver
-from loginHelper import login
-from navHelper import nav, submit
+from navHelper import NavHelper
 
 # Main menu
 def main_menu():
@@ -55,25 +54,25 @@ def prompt_creds():
 # Helper function for obtaining date of signing in
 def get_date():
     os.system("cls" if sys.platform == "win32" else "clear")
-    print("Please choose the month of your registration date: ")
-    print("1. November")
-    print("2. December")
-    choice = input(">> ")
     m_valid = False
 
-    while  not m_valid:
+    while not m_valid:
+        print("Please choose the month of your registration date: ")
+        print("1. November")
+        print("2. December")
+        choice = input(">> ")
+
         try:
             month = months[choice]
             m_valid = True
         except KeyError:
             print("Invalid month selection.")
 
-
-    print("Please enter the day of your registration date (e.g. 1, 2, 3, or 30): ")
-    choice = input(">> ")
     d_valid = False
-
     while not d_valid:
+        print("Please enter the day of your registration date (e.g. 1, 2, 3, or 30): ")
+        choice = input(">> ")
+
         try:
             day = days[choice]
             d_valid = True
@@ -81,50 +80,99 @@ def get_date():
             print("Invalid day choice. Remember not to enter the 'rd', 'st' or 'th' of the date.")
             print("For example, enter '3' if you are registering on the third, not '3rd'.")
 
+    h_valid = False
+    while not h_valid:
+        print("Please enter the hour of your registration date (in 24 hour military time).")
+        choice = input(">> ")
+
+        try:
+            hour = int(choice)
+            if hour >= 0 and hour <= 24:
+                h_valid = True
+            else:
+                print("Invalid hour choice. Remember to enter an hour between 0 and 24.")
+        except ValueError:
+            print("Invalid hour choice. Remember to enter an integer and leave off AM or PM.")
+
+    mi_valid = False
+    while not mi_valid:
+        print("Please enter the minute of your registration date.")
+        choice = input(">> ")
+        try:
+            minute = int(choice)
+            if minute >= 0 and minute <= 60:
+                mi_valid = True
+            else:
+                print("Invalid minute choice. Remember to enter a minute between 0 and 60.")
+        except ValueError:
+            print("Invalid minute choice. It must be an integer between 0 and 60.")
+
+
+
+
+
+
+
     # Is this part necessary? Are they all at 9:15?
     # print("Please enter the hour of your registration date.")
     # choice = input(">> ")
     #
-    return EST.localize(datetime(2018, month, day, hour=22, minute=19))
+    return EST.localize(datetime(2018, month, day, hour=hour, minute=minute))
 
 
 
 def run_now():
     print("Starting AutoRegister ...")
+    nav_helper = NavHelper(webdriver.Chrome("./chromedriver"))
     username, password = prompt_creds()
     print("***************************")
     print("Press CNTRL-C to quit running")
     print("***************************")
-    login(username, password)
-    nav()
-    submit()
+    nav_helper.login(username, password)
+    nav_helper.nav()
+    nav_helper.submit()
 
 # Start running one minute early
 def run_later():
     print("Starting AutoRegister ...")
+    nav_helper = NavHelper(webdriver.Chrome("./chromedriver"))
     reg_date = get_date()
     username, password = prompt_creds()
     print("***************************")
     print("Press CNTRL-C to quit running")
     print("***************************")
-    now = datetime.now(EST)
 
-    print(now)
-    print(reg_date)
-    diff = (now - reg_date).total_seconds()
-    print(diff)
+    print("Logging in!")
+    nav_helper.login(username, password)
+    nav_helper.nav()
+    nav_helper.submit(reg_date=reg_date, now=False)
 
-    if diff <= -60:
-        print("Waiting ...")
-
-    if diff >= -60:
-        print("Logging in!")
-        login(username, password)
-        nav()
-
-    if diff >= 0:
-        print("Submitting ... ")
-        submit()
+    # submit(reg_date)
+    # now = datetime.now(EST)
+    #
+    # print(now)
+    # print(reg_date)
+    # diff = (now - reg_date).total_seconds()
+    # print(diff)
+    #
+    #
+    # if diff <= -60:
+    #     print("Waiting ...")
+    #
+    # while diff <= -60:
+    #     pass
+    #
+    # if diff >= -60:
+    #     print("Logging in!")
+    #     login(username, password)
+    #     nav()
+    #
+    # while diff <= 0:
+    #     pass
+    #
+    # if diff >= 0:
+    #     print("Submitting ... ")
+    #     submit()
 
 
 

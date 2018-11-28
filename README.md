@@ -4,7 +4,10 @@ This is an application for automatically registering for Winter 2019 UMich class
 
 ## Preparation - Usage
 
-To prepare for auto register to work, backpack the classes you plan to take, and make sure you have Google Chrome installed. That's it!
+To prepare for auto register to work, backpack the classes you plan to take.
+Then download chromedriver and put it in the same directory as this project:
+
+[http://chromedriver.chromium.org/downloads]
 
 ## Running
 
@@ -26,7 +29,7 @@ Make sure you have pip and python3 installed. Also install pipenv:
 `$ pip install --user pipenv`
 
 Clone the repo and run
-`$ pipenv shell`. 
+`$ pipenv shell`.
 From there, you are ready to contribute!
 
 ## WARNING -- NEED TO FIX

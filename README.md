@@ -25,7 +25,9 @@ Create an .exe (or equivalent for mac) executable.
 Make sure you have pip and python3 installed. Also install pipenv:
 `$ pip install --user pipenv`
 
-Clone the repo and run pipenv. From there, you are ready to contribute!
+Clone the repo and run
+`$ pipenv shell`. 
+From there, you are ready to contribute!
 
 ## WARNING -- NEED TO FIX
 If the chromedriver window is closed, everything breaks!

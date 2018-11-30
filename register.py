@@ -1,3 +1,4 @@
+# coding=utf-8
 import sys, os, time, subprocess, getpass
 from datetime import datetime, timedelta
 import pytz
@@ -7,12 +8,14 @@ from navHelper import NavHelper
 
 # Main menu
 def main_menu():
+
     while True:
         os.system("cls" if sys.platform == "win32" else "clear")
         print("Welcome to AutoRegister!")
         print("Please choose the menu you wish to start")
         print("1. Run Now")
         print("2. Run Later")
+        print("3. Get Cookies")
         print("\n0. Quit")
         choice = input(">> ")
         exec_menu(choice)
@@ -107,23 +110,28 @@ def get_date():
         except ValueError:
             print("Invalid minute choice. It must be an integer between 0 and 60.")
 
-
-
-
-
-
-
-    # Is this part necessary? Are they all at 9:15?
-    # print("Please enter the hour of your registration date.")
-    # choice = input(">> ")
-    #
     return EST.localize(datetime(2018, month, day, hour=hour, minute=minute))
 
+def get_cookies():
+    if getattr(sys, 'frozen', False):
+        dir = os.path.dirname(__file__)
+        chromedriver_path = os.path.join(dir,"selenium","webdriver","chromedriver")
+    else:
+        chromedriver_path = "./chromedriver"
 
+    nav_helper = NavHelper(chromedriver_path)
+    username, password = prompt_creds()
+    nav_helper.get_2Fcookies(username, password)
 
 def run_now():
+    if getattr(sys, 'frozen', False):
+        dir = os.path.dirname(__file__)
+        chromedriver_path = os.path.join(dir,"selenium","webdriver","chromedriver")
+    else:
+        chromedriver_path = "./chromedriver"
+
     print("Starting AutoRegister ...")
-    nav_helper = NavHelper(webdriver.Chrome("./chromedriver"))
+    nav_helper = NavHelper(chromedriver_path)
     username, password = prompt_creds()
     print("***************************")
     print("Press CNTRL-C to quit running")
@@ -134,8 +142,14 @@ def run_now():
 
 # Start running one minute early
 def run_later():
+    if getattr(sys, 'frozen', False):
+        dir = os.path.dirname(__file__)
+        chromedriver_path = os.path.join(dir,"selenium","webdriver","chromedriver")
+    else:
+        chromedriver_path = "./chromedriver"
+
     print("Starting AutoRegister ...")
-    nav_helper = NavHelper(webdriver.Chrome("./chromedriver"))
+    nav_helper = NavHelper(chromedriver_path)
     reg_date = get_date()
     username, password = prompt_creds()
     print("***************************")
@@ -146,36 +160,6 @@ def run_later():
     nav_helper.login(username, password)
     nav_helper.nav()
     nav_helper.submit(reg_date=reg_date, now=False)
-
-    # submit(reg_date)
-    # now = datetime.now(EST)
-    #
-    # print(now)
-    # print(reg_date)
-    # diff = (now - reg_date).total_seconds()
-    # print(diff)
-    #
-    #
-    # if diff <= -60:
-    #     print("Waiting ...")
-    #
-    # while diff <= -60:
-    #     pass
-    #
-    # if diff >= -60:
-    #     print("Logging in!")
-    #     login(username, password)
-    #     nav()
-    #
-    # while diff <= 0:
-    #     pass
-    #
-    # if diff >= 0:
-    #     print("Submitting ... ")
-    #     submit()
-
-
-
 
 def quit():
     sys.exit()
@@ -218,6 +202,7 @@ menu_actions = {
     "main_menu": main_menu,
     "1": run_now,
     "2": run_later,
+    "3": get_cookies,
     "0": quit,
 }
 

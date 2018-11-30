@@ -1,7 +1,9 @@
 from selenium import webdriver
 from time import time
+import os
 from datetime import datetime, timedelta
-
+import pickle
+import sys
 
 # If it doesn't go through, send the user a text/email
 class NavHelper():
@@ -9,8 +11,15 @@ class NavHelper():
 # This function creates a try except while loop to keep clicking
 # on your selected id until it is successful. Lets the page wait for
 # the page to loads.
-    def __init__(self, driver):
-        self.driver = driver
+    def __init__(self, driver_path):
+        # load cookies
+        for file in os.listdir("cookies"):
+            if file.endswith(".pkl"):
+                cookies = pickle.load(open(os.path.join("cookies", file)))
+                for cookie in cookies:
+                    self.driver.add_cookie(cookie)
+
+        self.driver = webdriver.Chrome(driver_path)
 
     def login(self, username, password):
         from constants import LOGIN_URL
@@ -20,11 +29,11 @@ class NavHelper():
         self.driver.find_element_by_id("loginSubmit").click()
         return self.driver
 
-    def get_2Fcookies(self):
-        pass
-
-    def load_2Fcookies(self):
-        pass
+    def get_2Fcookies(self, username, password):
+        self.login(username, password)
+        print("Do two factor push. Press enter once done.")
+        input(">> ")
+        pickle.dump(driver.get_cookies(), open("./cookies/cookies.pk1", "wb"))
 
     def clickit(self, id):
         stale_element = True

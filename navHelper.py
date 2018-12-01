@@ -33,7 +33,7 @@ class NavHelper():
         self.login(username, password)
         print("Do two factor push. Press enter once done.")
         input(">> ")
-        pickle.dump(driver.get_cookies(), open("./cookies/cookies.pk1", "wb"))
+        pickle.dump(self.driver.get_cookies(), open("./cookies/cookies.pk1", "wb"))
 
     def clickit(self, id):
         stale_element = True

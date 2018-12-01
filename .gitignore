@@ -117,3 +117,6 @@ dmypy.json
 
 # Zipped files
 *.zip
+
+# VScode
+.vscode/*

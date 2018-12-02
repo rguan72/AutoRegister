@@ -110,28 +110,29 @@ def get_date():
         except ValueError:
             print("Invalid minute choice. It must be an integer between 0 and 60.")
 
+    month_names = {12: "December", 11: "November"}
+    print(f"You selected {month_names[month]} {day} at {hour}:{minute} as your registration date.")
+    input("Press enter to continue")
     return EST.localize(datetime(2018, month, day, hour=hour, minute=minute))
 
-def get_cookies():
-    if getattr(sys, 'frozen', False):
+# Helper function that returns the chromedriver path
+def get_driverpath():
+    if getattr(sys, "frozen", False):
         dir = os.path.dirname(__file__)
-        chromedriver_path = os.path.join(dir,"selenium","webdriver","chromedriver")
+        chromedriver_path = os.path.join(dir, "selenium", "webdriver", chromedrivers[sys.platform])
     else:
-        chromedriver_path = "./chromedriver"
+        chromedriver_path = os.path.join("./chromedrivers", chromedrivers[sys.platform])
 
-    nav_helper = NavHelper(chromedriver_path)
+    return chromedriver_path
+
+def get_cookies():
+    nav_helper = NavHelper(get_driverpath())
     username, password = prompt_creds()
     nav_helper.get_2Fcookies(username, password)
 
 def run_now():
-    if getattr(sys, 'frozen', False):
-        dir = os.path.dirname(__file__)
-        chromedriver_path = os.path.join(dir,"selenium","webdriver","chromedriver")
-    else:
-        chromedriver_path = "./chromedriver"
-
     print("Starting AutoRegister ...")
-    nav_helper = NavHelper(chromedriver_path)
+    nav_helper = NavHelper(get_driverpath())
     username, password = prompt_creds()
     print("***************************")
     print("Press CNTRL-C to quit running")
@@ -142,14 +143,8 @@ def run_now():
 
 # Start running one minute early
 def run_later():
-    if getattr(sys, 'frozen', False):
-        dir = os.path.dirname(__file__)
-        chromedriver_path = os.path.join(dir,"selenium","webdriver","chromedriver")
-    else:
-        chromedriver_path = "./chromedriver"
-
     print("Starting AutoRegister ...")
-    nav_helper = NavHelper(chromedriver_path)
+    nav_helper = NavHelper(get_driverpath())
     reg_date = get_date()
     username, password = prompt_creds()
     print("***************************")
@@ -204,6 +199,15 @@ menu_actions = {
     "2": run_later,
     "3": get_cookies,
     "0": quit,
+}
+
+# =======================
+#    PLATFORM DEFINITIONS
+# =======================
+chromedrivers = {
+    "win32": "chromedriver.exe",
+    "linux": "chromedriver_linux",
+    "darwin": "chromedriver_mac",
 }
 
 # =======================

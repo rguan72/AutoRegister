@@ -9,6 +9,7 @@ W19_ID = "SSR_DUMMY_RECV1$sels$0$$0" # ID might change with different yeared stu
 CONT_ID = "DERIVED_SSS_SCT_SSR_PB_GO"
 P2_3 = "DERIVED_REGFRM1_LINK_ADD_ENRL$82$"
 FIN_ID = "DERIVED_REGFRM1_SSR_PB_SUBMIT"
+WARN = "DERIVED_SASSMSG_SSR_MSG_PB$IMG"
 EST = timezone("US/Eastern")
 
 # Testing purposes only

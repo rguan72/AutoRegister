@@ -89,7 +89,7 @@ class NavHelper():
     # keep clicking until it goes through?
     # This function sends the final submission
     def submit(self, **kwargs):
-        from constants import P2_3, FIN_ID, EST
+        from constants import P2_3, FIN_ID, EST, WARN
         unregistered = True
 
         try:
@@ -116,6 +116,13 @@ class NavHelper():
                     self.clickit(P2_3)
                     self.clickit(FIN_ID)
                     unregistered = False
+        # problem with registering
+        try:
+            self.driver.find_element_by_name(WARN)
+            print("Registration failed")
+        except:
+            print("Registration successful")
+
         return
 
 

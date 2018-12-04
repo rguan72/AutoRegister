@@ -16,6 +16,7 @@ def main_menu():
         print("1. Run Now")
         print("2. Run Later")
         print("3. Get Cookies")
+        print("4. Two Factor")
         print("\n0. Quit")
         choice = input(">> ")
         exec_menu(choice)
@@ -154,7 +155,25 @@ def run_later():
     print("Logging in!")
     nav_helper.login(username, password)
     nav_helper.nav()
-    nav_helper.submit(reg_date=reg_date, now=False)
+    nav_helper.submit(reg_date, False)
+
+def two_factor():
+    print("Starting AutoRegister ...")
+    nav_helper = NavHelper(get_driverpath())
+    username, password = prompt_creds()
+    nav_helper.login(username, password)
+    print("Do a two factor push. Press ENTER once done.")
+    input(">>")
+    nav_helper.nav()
+    print("Enter 'y' to enter a date to submit later. Otherwise, press enter to continue and submit now.")
+    choice = input(">> ")
+    if choice.strip() == "Y" or choice.strip() == "y":
+        reg_date = get_date()
+        nav_helper.submit(reg_date, False)
+    else:
+        nav_helper.submit()
+
+
 
 def quit():
     sys.exit()
@@ -198,6 +217,7 @@ menu_actions = {
     "1": run_now,
     "2": run_later,
     "3": get_cookies,
+    "4": two_factor,
     "0": quit,
 }
 

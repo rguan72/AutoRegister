@@ -88,19 +88,9 @@ class NavHelper():
 
     # keep clicking until it goes through?
     # This function sends the final submission
-    def submit(self, **kwargs):
+    def submit(self, now=True, reg_date=None):
         from constants import P2_3, FIN_ID, EST, WARN
         unregistered = True
-
-        try:
-            now = kwargs["now"]
-        except KeyError:
-            now = True
-
-        try:
-            reg_date = kwargs["reg_date"]
-        except KeyError:
-            reg_date = None
 
         if now:
             self.clickit(P2_3)

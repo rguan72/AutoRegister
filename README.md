@@ -21,6 +21,8 @@ Select "Run Later" if you want the script to wait for your registration date to 
 Create an .exe (or equivalent for mac) executable.
 
 ## Development
+Clone the repo:
+`git clone https://gitlab.eecs.umich.edu/guanr/autoregister.git`
 
 Make sure you have pip and python3 installed. Also install pipenv:
 `$ pip install --user pipenv`

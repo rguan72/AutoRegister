@@ -1,14 +1,12 @@
-# -*- mode: python -*-
+# -*- mode: python ; coding: utf-8 -*-
 
 block_cipher = None
 
-binary_files = [('./chromedrivers/chromedriver_linux', './selenium/webdriver'),
-                ('./chromedrivers/chromedriver_mac', './selenium/webdriver'),
-                ('./chromedrivers/chromedriver.exe', './selenium/webdriver')]
+
 a = Analysis(['register.py'],
-             pathex=['/home/richard/projects/auto_register'],
-             binaries=binary_files,
-             datas=[('./cookies/filler.txt', './cookies')],
+             pathex=['/mnt/c/Users/smile/projects/AutoRegister'],
+             binaries=[],
+             datas=[],
              hiddenimports=[],
              hookspath=[],
              runtime_hooks=[],
@@ -35,4 +33,5 @@ coll = COLLECT(exe,
                a.datas,
                strip=False,
                upx=True,
+               upx_exclude=[],
                name='register')

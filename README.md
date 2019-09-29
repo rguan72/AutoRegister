@@ -1,41 +1,32 @@
-## AutoRegister
+# AutoRegister
 
-This is an application for automatically registering for Winter 2019 UMich classes.
+A python script to register for classes on Wolverine Access automatically.
+UMich classes can fill up really quickly, especially if you have a late registration date. This tool registers for classes for you the moment registration opens.
 
-## Preparation - Usage
+## Quick Start - Usage
 
-To prepare for auto register to work, backpack the classes you plan to take.
-
-## Running
-
-(before exe)
-Get in the virtual environment:
-`$ pipenv shell`
-
-Run the python script in terminal
-`(virtualenv)$ python registration.py`
-Select "Run Later" if you want the script to wait for your registration date to run. Select "Run Now" if you want the script to register for your classes now. You will be prompted to enter your umich uniqname and password.
-
-## TODO
-
-Create an .exe (or equivalent for mac) executable.
+1. Backpack the classes you plan to take on Wolverine Access
+2. Run register.py as described [here](#Development)
 
 ## Development
-Clone the repo:
-`git clone https://gitlab.eecs.umich.edu/guanr/autoregister.git`
 
-Make sure you have pip and python3 installed. Also install pipenv:
-`$ pip install --user pipenv`
+```bash
+# Clone the repo:
+$ git clone https://gitlab.eecs.umich.edu/guanr/autoregister.git
 
-Then install all dependencies with pipenv:
-`$ pipenv install`
+# Make sure you have pip and python3 installed. Also install pipenv:
+$ pip install --user pipenv
 
-Clone the repo and run
-`$ pipenv shell`.
-From there, you are ready to contribute!
+# Then install all dependencies with pipenv:
+$ pipenv install
 
-## WARNING -- NEED TO FIX
-If the chromedriver window is closed, everything breaks!
+# Get in virtual environment
+$ pipenv shell
 
-## Authors
-* **Richard Guan**
+# Run script
+(AutoRegister) $ python registration.py
+```
+
+## License
+
+[MIT](https://github.com/AutoRegister/blob/master/LICENSE)
